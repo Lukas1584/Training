@@ -47,7 +47,7 @@ try
     
     win.wait_for_button();               // Display!
 }
-catch (exception & e) {
+catch (const exception & e) {
     std::cout << e.what();
     return 1;
 }

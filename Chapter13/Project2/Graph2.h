@@ -1,3 +1,6 @@
+#ifndef GRAPH2
+#define GRAPH2
+
 #include "Graph.h"
 #include <FL/fl_draw.H>
 #include <FL/Fl_Image.H>
@@ -69,4 +72,4 @@ namespace Graph_lib {
 
 
 }
-
+#endif
