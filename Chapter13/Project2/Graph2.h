@@ -54,6 +54,17 @@ namespace Graph_lib {
     Point sw(const Rectangle& r);
     Point nw(const Rectangle& r);
     
+    struct Regular_hexagon:Shape
+    {
+        Regular_hexagon(const Point& xy, int rr) :r(rr)
+        {
+            if (r <= 3) error("Wrong radius");
+            add(xy);
+        }
+        void draw_lines() const;
+    private:
+        int r;
+    };
     
 
 

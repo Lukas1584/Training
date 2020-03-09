@@ -10,7 +10,7 @@ int main()
 try
 {
     Point tl(100, 100);
-    Simple_window win(tl, 1000, 600, "First");
+    Simple_window win(tl, 1000, 800, "First");
     Box a(Point(150, 120), 200, 150, 8);
     a.set_color(Color::blue);
     Line_style st(Line_style::solid, 4);
@@ -41,6 +41,10 @@ try
     Line ll(sw(rr), ne(rr));
     ll.set_color(Color::green);
     win.attach(ll);
+    Regular_hexagon rh(Point(200, 500), 50);
+    rh.set_color(Color::dark_blue);
+    win.attach(rh);
+    
     win.wait_for_button();               // Display!
 }
 catch (exception & e) {

@@ -78,4 +78,18 @@ namespace Graph_lib {
     {
         return Point(r.point(0).x, r.point(0).y);
     }
+
+    void Regular_hexagon::draw_lines() const
+    {
+        if (color().visibility())
+        {
+            double cosa = 0.866;
+            fl_line(point(0).x - r * cosa, point(0).y - r / 2, point(0).x - r * cosa, point(0).y + r / 2);
+            fl_line(point(0).x + r * cosa, point(0).y - r / 2, point(0).x + r * cosa, point(0).y + r / 2);
+            fl_line(point(0).x - r * cosa, point(0).y - r / 2, point(0).x, point(0).y - r);
+            fl_line(point(0).x + r * cosa, point(0).y - r / 2, point(0).x, point(0).y - r);
+            fl_line(point(0).x - r * cosa, point(0).y + r / 2, point(0).x, point(0).y + r);
+            fl_line(point(0).x + r * cosa, point(0).y + r / 2, point(0).x, point(0).y + r);
+        }
+    }
 }
