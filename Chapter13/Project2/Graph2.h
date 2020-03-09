@@ -44,7 +44,17 @@ namespace Graph_lib {
         int w;
         int h;
     };
-
+    Point n(const Rectangle& r);
+    Point s(const Rectangle& r);
+    Point w(const Rectangle& r);
+    Point e(const Rectangle& r);
+    Point center(const Rectangle& r);
+    Point ne(const Rectangle& r);
+    Point se(const Rectangle& r);
+    Point sw(const Rectangle& r);
+    Point nw(const Rectangle& r);
+    
+    
 
 
 }

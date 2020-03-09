@@ -10,7 +10,7 @@ int main()
 try
 {
     Point tl(100, 100);
-    Simple_window win(tl, 600, 400, "First");
+    Simple_window win(tl, 1000, 600, "First");
     Box a(Point(150, 120), 200, 150, 8);
     a.set_color(Color::blue);
     Line_style st(Line_style::solid, 4);
@@ -32,6 +32,15 @@ try
     Arrow ar4(Point(420, 300), Point(420, 50), 30, 20);
     ar4.set_color(Color::black);
     win.attach(ar4);
+    Graph_lib::Rectangle rr(Point(600, 50), 300, 300);
+    rr.set_color(Color::green);
+    win.attach(rr);
+    Line l(nw(rr), se(rr));
+    l.set_color(Color::green);
+    win.attach(l);
+    Line ll(sw(rr), ne(rr));
+    ll.set_color(Color::green);
+    win.attach(ll);
     win.wait_for_button();               // Display!
 }
 catch (exception & e) {
