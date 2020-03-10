@@ -96,10 +96,12 @@ namespace Graph_lib {
         if (color().visibility())
         {
             int r = radius();
-            fl_arc(point(0).x, point(0).y, r + r, r + r, 0, 360);
-            fl_arc(point(0).x+0.5*r, point(0).y+0.8*r, r ,  0.8*r, 180, 0);
-            fl_arc(point(0).x + 1.1 * r, point(0).y + 0.6*r, 0.3*r, 0.3 * r, 0, 360);
-            fl_arc(point(0).x + 0.6 * r, point(0).y + 0.6*r, 0.3*r, 0.3 * r, 0, 360);
+            int x0 = point(0).x;
+            int y0 = point(0).y;
+            fl_arc(x0          , y0        , r + r , r + r  , 0   , 360);
+            fl_arc(x0+0.5*r    , y0+0.8*r  , r     ,  0.8*r , 180 , 0  );
+            fl_arc(x0 + 1.1 * r, y0 + 0.6*r, 0.3*r , 0.3 * r, 0   , 360);
+            fl_arc(x0 + 0.6 * r, y0 + 0.6*r, 0.3*r , 0.3 * r, 0   , 360);
         }
     }
 
@@ -108,10 +110,12 @@ namespace Graph_lib {
         if (color().visibility())
         {
             int r = radius();
-            fl_arc(point(0).x, point(0).y, r + r, r + r, 0, 360);
-            fl_arc(point(0).x + 0.5 * r, point(0).y + 1.1*r, r, 0.8 * r, 0, 180);
-            fl_arc(point(0).x + 1.1 * r, point(0).y + 0.6 * r, 0.3 * r, 0.3 * r, 0, 360);
-            fl_arc(point(0).x + 0.6 * r, point(0).y + 0.6 * r, 0.3 * r, 0.3 * r, 0, 360);
+            int x0 = point(0).x;
+            int y0 = point(0).y;
+            fl_arc(x0, y0, r + r, r + r, 0, 360);
+            fl_arc(x0 + 0.5 * r, y0 + 1.1 * r,       r, 0.8 * r, 0, 180);
+            fl_arc(x0 + 1.1 * r, y0 + 0.6 * r, 0.3 * r, 0.3 * r, 0, 360);
+            fl_arc(x0 + 0.6 * r, y0 + 0.6 * r, 0.3 * r, 0.3 * r, 0, 360);
         }
     }
 
