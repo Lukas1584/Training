@@ -1,6 +1,4 @@
 #include <Simple_window.h>
-#include <Graph.h> 
-#include <std_lib_facilities.h>
 #include "Graph2.h"
 #include <iostream>
 
@@ -44,6 +42,18 @@ try
     Regular_hexagon rh(Point(200, 500), 50);
     rh.set_color(Color::dark_blue);
     win.attach(rh);
+    Smiley sm(Point(400, 420), 100);
+    sm.set_color(Color::black);
+    win.attach(sm);
+    Frowny fr(Point(600, 500), 80);
+    fr.set_color(Color::black);
+    win.attach(fr);
+    Smiley_hat sh(Point(800, 400), 120);
+    sh.set_color(Color::black);
+    win.attach(sh);
+    Frowny_hat fh(Point(850, 600), 60);
+    fh.set_color(Color::black);
+    win.attach(fh);
     
     win.wait_for_button();               // Display!
 }

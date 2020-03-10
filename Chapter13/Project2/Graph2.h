@@ -1,11 +1,6 @@
-#ifndef GRAPH2
-#define GRAPH2
+#pragma once
+#include <Graph.h>
 
-#include "Graph.h"
-#include <FL/fl_draw.H>
-#include <FL/Fl_Image.H>
-#include "Point.h"
-#include "std_lib_facilities.h"
 
 namespace Graph_lib {
 
@@ -68,8 +63,37 @@ namespace Graph_lib {
     private:
         int r;
     };
+
+    struct Smiley :Circle
+    {
+        Smiley(Point p, int rr) : Circle(p, rr)
+        {}
+        void draw_lines() const;
+
+    };
     
+    struct Frowny :Circle
+    {
+        Frowny (Point p, int rr) : Circle(p, rr)
+        {}
+        void draw_lines() const;
+    };
+
+    struct Smiley_hat :Smiley
+    {
+        Smiley_hat(Point p, int rr) :Smiley(p, rr)
+        {}
+        void draw_lines() const;
+    };
+    
+    struct Frowny_hat :Frowny
+    {
+        Frowny_hat(Point p, int rr) : Frowny (p, rr)
+        {}
+        void draw_lines() const;
+    };
+
 
 
 }
-#endif
+

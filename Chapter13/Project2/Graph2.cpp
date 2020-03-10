@@ -1,7 +1,5 @@
-#include "Graph.h"
 #include "Graph2.h"
 #include <cmath>
-
 
 namespace Graph_lib {
 
@@ -92,4 +90,47 @@ namespace Graph_lib {
             fl_line(point(0).x + r * cosa, point(0).y + r / 2, point(0).x, point(0).y + r);
         }
     }
+
+    void Smiley::draw_lines() const
+    {
+        if (color().visibility())
+        {
+            int r = radius();
+            fl_arc(point(0).x, point(0).y, r + r, r + r, 0, 360);
+            fl_arc(point(0).x+0.5*r, point(0).y+0.8*r, r ,  0.8*r, 180, 0);
+            fl_arc(point(0).x + 1.1 * r, point(0).y + 0.6*r, 0.3*r, 0.3 * r, 0, 360);
+            fl_arc(point(0).x + 0.6 * r, point(0).y + 0.6*r, 0.3*r, 0.3 * r, 0, 360);
+        }
+    }
+
+    void Frowny::draw_lines() const
+    {
+        if (color().visibility())
+        {
+            int r = radius();
+            fl_arc(point(0).x, point(0).y, r + r, r + r, 0, 360);
+            fl_arc(point(0).x + 0.5 * r, point(0).y + 1.1*r, r, 0.8 * r, 0, 180);
+            fl_arc(point(0).x + 1.1 * r, point(0).y + 0.6 * r, 0.3 * r, 0.3 * r, 0, 360);
+            fl_arc(point(0).x + 0.6 * r, point(0).y + 0.6 * r, 0.3 * r, 0.3 * r, 0, 360);
+        }
+    }
+
+    void hat(const Point& p, int r)
+    {
+        fl_line(p.x - 0.2 * r, p.y - r, p.x, p.y - 1.5 * r);
+        fl_line(p.x, p.y - 1.5 * r, p.x + 0.2 * r, p.y - r);
+    }
+
+    void Smiley_hat::draw_lines() const
+    {
+        Smiley(point(0), radius()).draw_lines();
+        hat (point(0), radius());
+    }
+    void Frowny_hat::draw_lines() const
+    {
+        Frowny(point(0), radius()).draw_lines();
+        hat(point(0), radius());
+    }
+    
+
 }
