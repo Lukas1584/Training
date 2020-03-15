@@ -3,7 +3,7 @@
 
 
 namespace Graph_lib {
-
+    void error_win(string s);
 
     struct Box : Shape 
     {
@@ -109,7 +109,30 @@ namespace Graph_lib {
         Line_style lsf;
     };
 
-   
+    struct Hist :Shape
+    {
+        Hist(Point xy, int width, int height) : w(width), h(height) {
+            Shape::add(xy);
+            
+        }
+
+        void draw_lines() const;
+        void add(double d) { data.push_back(d); }
+        double size() const { return data.size(); }
+        double value(int i) const
+        {
+            if (i < data.size() && i >= 0)
+                return data[i];
+            else throw exception("Invalid value vector member");
+        }
+        double max_()const;
+        double min_()const;
+    private:
+        
+        vector<double> data;
+        int h;
+        int w;
+    };
     
 
 }

@@ -161,6 +161,35 @@ namespace Graph_lib {
             fl_line(point(0).x, point(0).y + i, point(0).x + width(), point(0).y + i);
     }
 
-    
+    double Hist::max_()const
+    {
+        double max = data[0];
+        for (double i : data)
+            if (i > max) max = i;
+        return max;
+    }
+    double Hist::min_()const
+    {
+        double min = data[0];
+        for (double i : data)
+            if (i < min) min = i;
+        return min;
+    }
+
+    void Hist::draw_lines() const
+    {
+        double yscale = 0.9 * h / (max_() - min_());
+        int wd = style().width() / 2;
+        for (int i = 0; i < data.size(); i++)
+        {
+            double width_col = 0.9 * w / (2 * data.size() - 1);
+            double height_col = yscale * (max_() - value(i));
+            fl_color(fill_color().as_int());
+            fl_rectf(point(0).x + 2 * i * width_col + 0.05 * w, point(0).y + height_col, width_col, h - height_col);
+            fl_color(color().as_int());
+            fl_rect(point(0).x + 2 * i * width_col + wd + 0.05 * w, point(0).y + wd + height_col, width_col - wd, h - height_col - wd);
+        }
+        fl_rect(point(0).x, point(0).y, w, h);
+        }
 
 }
