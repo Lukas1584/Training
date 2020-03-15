@@ -1,5 +1,6 @@
 #include "Graph2.h"
 #include <cmath>
+#include "Simple_Window.h"
 
 namespace Graph_lib {
 
@@ -135,6 +136,31 @@ namespace Graph_lib {
         Frowny(point(0), radius()).draw_lines();
         hat(point(0), radius());
     }
+    
+    void error_win(string s)
+    {
+        int width = 10*s.size() + 100;
+        Simple_window alert(Point(300, 300), width, 150, "Error");
+        Text t(Point(50, 70), s);
+        t.set_color(Color::black);
+        alert.attach(t);
+        alert.wait_for_button();
+    }
+
+    void Immobile_Circle::move(int dx, int dy)
+    {
+        error_win("Immobile_Circle can't move!");
+    }
+    void Stripped_Rectangle::draw_lines() const
+    {
+        fl_color(color().as_int());
+        fl_rect(point(0).x, point(0).y, width(), height());
+        fl_color(fill_color().as_int());
+        fl_line_style(lsf.style(), lsf.width());
+        for (int i = 2*lsf.width(); i < height()- 0.5*lsf.width(); i += 2* lsf.width())
+            fl_line(point(0).x, point(0).y + i, point(0).x + width(), point(0).y + i);
+    }
+
     
 
 }

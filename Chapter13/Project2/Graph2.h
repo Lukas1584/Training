@@ -93,7 +93,24 @@ namespace Graph_lib {
         void draw_lines() const;
     };
 
+    struct Immobile_Circle :Circle
+    {
+        Immobile_Circle(Point p, int rr) : Circle(p, rr) {}
+        void move(int dx, int dy);
+        
+    };
 
+    struct Stripped_Rectangle:Rectangle
+    {
+        Stripped_Rectangle(Point xy, int ww, int hh) :Rectangle(xy,ww,hh), lsf(Line_style::solid, 1) {}
+        void draw_lines() const;
+        void set_fil_style(Line_style sty) { lsf = sty; }
+    private:
+        Line_style lsf;
+    };
+
+   
+    
 
 }
 
