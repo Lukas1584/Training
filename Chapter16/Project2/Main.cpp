@@ -7,7 +7,7 @@ using namespace Graph_lib;
 int main()
 try
 {   
-    My_window win(Point(100, 100), 800, 600, "Chapter 15 task 6");
+    Chess win(Point(100, 100), 800, 600);
     win.wait_for_button();
 }
 catch (const exception & e) {

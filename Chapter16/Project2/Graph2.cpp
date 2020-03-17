@@ -2,6 +2,7 @@
 #include <cmath>
 #include "Simple_Window.h"
 
+
 namespace Graph_lib {
         
     void error_win(string s)
@@ -53,5 +54,55 @@ namespace Graph_lib {
     {
         hide();
     }
+    
+    //---------------------------------------------
+    Chess::Chess(Point xy, int w, int h) :
+        My_window(xy, w, h, "Chess"), 
+        outb (Point(xy.x+120,xy.y), 100, 30,"Position:" )
+ 
+    {   
+        attach(outb);
+        int count = 0;
+        for (int i = 1; i < 5; i++)
+            for (int j = 1; j < 5; j++)
+            {
+                stringstream s; 
+                s << i << j;
+                attach(new Button(Point(xy.x + 50 * i, xy.y + 50 * j), 50, 50, s.str() ,
+                    [](void*, void* pw) 
+                    {
+                        reference_to<Chess>(pw).do_some();                         
+                    }));
+            }
+    }
 
+    
+    void Chess::do_some()
+    {
+        outb.put("Number");
+
+    }
+
+    
+    
+    
+    
+    
+
+
+
+
+    void Chess::attach(Widget* w)
+    {
+        begin();         // FTLK: begin attaching new Fl_Wigets to this window
+        (*w).attach(*this); // let the Widget create its Fl_Wigits
+        end();           // FTLK: stop attaching new Fl_Wigets to this window
+    }
+
+    void Chess::attach(Widget& w)
+    {
+        begin();         // FTLK: begin attaching new Fl_Wigets to this window
+        w.attach(*this); // let the Widget create its Fl_Wigits
+        end();           // FTLK: stop attaching new Fl_Wigets to this window
+    }
 }
