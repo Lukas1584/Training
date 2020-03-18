@@ -59,7 +59,6 @@ namespace Graph_lib {
     Chess::Chess(Point xy, int w, int h) :
         My_window(xy, w, h, "Chess"), 
         outb (Point(xy.x+120,xy.y), 100, 30,"Position:" )
- 
     {   
         attach(outb);
         int count = 0;
@@ -68,19 +67,17 @@ namespace Graph_lib {
             {
                 stringstream s; 
                 s << i << j;
-                attach(new Button(Point(xy.x + 50 * i, xy.y + 50 * j), 50, 50, s.str() ,
-                    [](void* pb, void* pw) 
-                    {
-                        reference_to<Chess>(pw).do_some(pb);  
-                    }));
+                attach(*(new Button(Point(xy.x + 50 * i, xy.y + 50 * j), 50, 50, s.str() ,
+                    [](void* pwid, void* pw){
+                        reference_to<Chess>(pw).do_some(pwid);  
+                    })));
             }
     }
 
     
-    void Chess::do_some(void* pb)
+    void Chess::do_some(void* pwid)
     {
-        outb.put(reference_to<Widget>(pb).label);
-        
+        outb.put(reference_to<Fl_Widget>(pwid).label());
     }
 
     
@@ -92,17 +89,5 @@ namespace Graph_lib {
 
 
 
-    void Chess::attach(Widget* w)
-    {
-        begin();         // FTLK: begin attaching new Fl_Wigets to this window
-        (*w).attach(*this); // let the Widget create its Fl_Wigits
-        end();           // FTLK: stop attaching new Fl_Wigets to this window
-    }
 
-    void Chess::attach(Widget& w)
-    {
-        begin();         // FTLK: begin attaching new Fl_Wigets to this window
-        w.attach(*this); // let the Widget create its Fl_Wigits
-        end();           // FTLK: stop attaching new Fl_Wigets to this window
-    }
 }

@@ -24,13 +24,9 @@ namespace Graph_lib
     struct Chess :My_window
     {
         Chess(Point xy, int w, int h);
-        void attach(Widget* w);
-        void attach(Widget& w);
-        Out_box outb;
     private:
-        
-        void do_some(void* pb);
-        
+        Out_box outb;
+        void do_some(void* pwid);        
     };
 
 }
