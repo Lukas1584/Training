@@ -29,7 +29,7 @@ namespace Graph_lib
         Out_box outb;
     private:
         
-        void do_some();
+        void do_some(void* pb);
         
     };
 

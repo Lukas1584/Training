@@ -69,18 +69,18 @@ namespace Graph_lib {
                 stringstream s; 
                 s << i << j;
                 attach(new Button(Point(xy.x + 50 * i, xy.y + 50 * j), 50, 50, s.str() ,
-                    [](void*, void* pw) 
+                    [](void* pb, void* pw) 
                     {
-                        reference_to<Chess>(pw).do_some();                         
+                        reference_to<Chess>(pw).do_some(pb);  
                     }));
             }
     }
 
     
-    void Chess::do_some()
+    void Chess::do_some(void* pb)
     {
-        outb.put("Number");
-
+        outb.put(reference_to<Widget>(pb).label);
+        
     }
 
     
