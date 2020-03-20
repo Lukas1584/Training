@@ -1,4 +1,5 @@
 ﻿#include <iostream>
+#include <string>
 
 void to_lower(char* s)
 {
@@ -83,8 +84,20 @@ char* task7()
     }
     *tmp = '\0';
     return t;
-    
 }
+
+std::string task8()
+{
+    std::string t;
+    char ch = '/0';
+    while (ch != '!')
+    {
+        ch = std::cin.get();
+        t+= ch;
+    }
+    return t;
+}
+
 
 int main()
 {
@@ -101,7 +114,7 @@ int main()
     std::cout << *(findx(str1,str2));
     death();*/
     
-    std::cout << task7();
+    std::cout << task8();
     
 }
 
