@@ -59,6 +59,16 @@ const char* findx(const char* s, const char* x)
     return s;
 }
 
+void death()
+{
+    long k=0;
+    while (1)
+    {
+        double* t = new double[1000000];
+        std::cout << k * sizeof(double[1000000]) << std::endl;
+        k++;
+    }
+}
 
 int main()
 {
@@ -73,6 +83,8 @@ int main()
     const char* str1 = "Hello world";
     const char* str2 = "lo";
     std::cout << *(findx(str1,str2));
+    death();
+
     
 }
 
