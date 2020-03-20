@@ -98,7 +98,24 @@ std::string task8()
     return t;
 }
 
+void stack(int k)
+{
+    int i;
+    int* tmp = &i;
+    std::cout << tmp << std::endl;
+    k=k-1;
+    if (k == 0) return;
+    stack(k);
+}
 
+void memory()
+{
+    for (int i = 0; i < 5; i++)
+    {
+        int* tmp = new int;
+        std::cout << tmp << std::endl;
+    }
+}
 int main()
 {
     /*std::cout << "Please, input text (max 200 symbols)\n";
@@ -112,9 +129,12 @@ int main()
     const char* str1 = "Hello world";
     const char* str2 = "lo";
     std::cout << *(findx(str1,str2));
-    death();*/
-    
-    std::cout << task8();
+    death();
+    std::cout << task8();*/
+    std::cout << "Stack:" << std::endl;
+    stack(5);
+    std::cout << "Memory:" << std::endl;
+    memory();
     
 }
 
