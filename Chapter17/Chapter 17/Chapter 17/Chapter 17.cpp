@@ -70,6 +70,22 @@ void death()
     }
 }
 
+char* task7()
+{
+    char* t = new char[300];
+    char* tmp = t;
+    char ch = '/0';
+    while (ch != '!')
+    {
+        ch = std::cin.get();
+        *tmp = ch;
+        tmp++;
+    }
+    *tmp = '\0';
+    return t;
+    
+}
+
 int main()
 {
     /*std::cout << "Please, input text (max 200 symbols)\n";
@@ -79,12 +95,13 @@ int main()
     std::cout << "In lower case:" << std::endl 
         << str << std::endl
         << "New string:" <<std::endl
-        << strdup1(str);*/
+        << strdup1(str);
     const char* str1 = "Hello world";
     const char* str2 = "lo";
     std::cout << *(findx(str1,str2));
-    death();
-
+    death();*/
+    
+    std::cout << task7();
     
 }
 
