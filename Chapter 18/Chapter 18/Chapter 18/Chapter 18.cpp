@@ -53,9 +53,9 @@ int strcmp(const char* s1, const char* s2)
     else return 1;
 }
 
-std::string cat_dot(const std::string& s1, const std::string& s2)
+std::string cat_dot(const std::string& s1, const std::string& s2,const char dot)
 {
-    return std::string(s1 +"."+ s2);
+    return std::string(s1 + dot + s2);
 }
 
 int main()
@@ -67,6 +67,6 @@ int main()
     std::cout << strcmp(s1, s2) << std::endl;
     std::string str1 = "Sun";
     std::string str2 = "Moon";
-    std::cout << cat_dot(str1, str2) << std::endl;
-    std::cout << cat_dot("Life", "Death") << std::endl;
+    std::cout << cat_dot(str1, str2, '+') << std::endl;
+    std::cout << cat_dot("Life", "Death",'.') << std::endl;
 }
