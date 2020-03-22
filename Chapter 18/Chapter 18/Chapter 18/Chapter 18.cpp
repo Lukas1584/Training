@@ -1,4 +1,5 @@
 ﻿#include <iostream>
+#include <string>
 
 int str_size(const char* s)
 {
@@ -52,11 +53,20 @@ int strcmp(const char* s1, const char* s2)
     else return 1;
 }
 
+std::string cat_dot(const std::string& s1, const std::string& s2)
+{
+    return std::string(s1 +"."+ s2);
+}
+
 int main()
 {   
     const char* string = "Hello, world!";
-    std::cout << string << std::endl << strdup1(string);
+    std::cout << string << std::endl << strdup1(string) << std::endl;
     char s1 []= "Hello";
     char s2 []= "hello";
-    std::cout << std::endl << strcmp(s1,s2);
+    std::cout << strcmp(s1, s2) << std::endl;
+    std::string str1 = "Sun";
+    std::string str2 = "Moon";
+    std::cout << cat_dot(str1, str2) << std::endl;
+    std::cout << cat_dot("Life", "Death") << std::endl;
 }
