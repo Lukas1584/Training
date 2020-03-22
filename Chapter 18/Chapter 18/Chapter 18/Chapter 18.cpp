@@ -58,6 +58,21 @@ std::string cat_dot(const std::string& s1, const std::string& s2,const char dot)
     return std::string(s1 + dot + s2);
 }
 
+char* cat_dot_char(const char* s1, const char* s2, const char dot)
+{
+    int size_s1 = str_size(s1);
+    int size_s2 = str_size(s2);
+    char* result = new char[size_s1 + size_s2 + 2];
+    char* tmp = result;
+    for (; *s1; s1++, tmp++)
+        *tmp = *s1;
+    *tmp++ = dot;
+    for (; *s2; s2++, tmp++)
+        *tmp = *s2;
+    *tmp++ = '\0';
+    return result;
+}
+
 int main()
 {   
     const char* string = "Hello, world!";
@@ -69,4 +84,8 @@ int main()
     std::string str2 = "Moon";
     std::cout << cat_dot(str1, str2, '+') << std::endl;
     std::cout << cat_dot("Life", "Death",'.') << std::endl;
+    char* str3 = cat_dot_char("Beer", "Tea", '/');
+    std::cout << str3 << std::endl;
+    delete []str3;
+
 }
