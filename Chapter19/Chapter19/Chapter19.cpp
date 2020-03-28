@@ -27,46 +27,48 @@ requires(T t, U u)
 
 template <typename T, typename U>
 requires amount_multiplication <T,U>
-double task2(const std::vector<T>& vt, const std::vector<U>& vu)
+T task2(const std::vector<T>& vt, const std::vector<U>& vu)
 {
-	double res = 0;
+	T res = 0;
 	if (vt.size() != vu.size()) throw std::runtime_error("vector sizes are not equal");
 	for (int i = 0; i < vt.size(); i++)
-		res += vt.at(i) * vu.at(i);
+		res = res + vt.at(i) * vu.at(i);
 	return res;
 }
 
-/*
 class Int
 {
-	int i;
+	int value;
 public:
-	Int():i(0) {}
-	Int(int& ii) : i(ii) {}
-	Int(const int& ii) : i(ii) {}
-	Int(Int& ii) : i(ii.get()) {}
-	int get() const { return i; }
-	void set(int ii) { i = ii; }
-	void operator=(const int& ii) { i = ii; }
-	void operator=(const Int& ii) { i = ii.get(); }
-	//Int operator+(int& ii) { return Int (i+ii);}
-	int operator+(const Int& ii) { return i + ii.get(); }
-	int operator-(const int& ii) { return i - ii; }
-	int operator-(const Int& ii) { return i - ii.get(); }
-	int operator*(const int& ii) { return i * ii; }
-	int operator*(const Int& ii) { return i * ii.get(); }
-	int operator/(const int& ii) { if(!ii) return i + ii; }
-	int operator/(const Int& ii) { if (!ii.get()) return i + ii.get(); }
-	friend std::ostream& operator<<(std::ostream& os, Int ii);
+	Int():value(0) {}
+	Int(const int& i) : value(i) {}
+	Int(const Int& i) : value(i.get()) {}
+	
+	int get() const { return value; }
+	void set(const int& i) { value = i; }
+	
+	void operator=(const int&& i) { value = i; }
+	void operator=(const Int& i) { value = i.get(); }
+		
+	Int operator+(const Int& right)	{ return Int(value + right.get());}
+	Int operator-(const Int& right) { return Int(value - right.get()); }
+	Int operator*(const Int& right) { return Int(value * right.get()); }
+	Int operator/(const Int& right) { if (right.get()!=0) return Int(value / (right.get())); }
 };
-std::ostream& operator <<(std::ostream& os, Int ii)
+
+std::ostream& operator <<(std::ostream& left, const Int& right)
 {
-	os << ii.get() << std::endl;
-	return os;
+	left << right.get() << std::endl;
+	return left;
 }
-*/
 
-
+std::istream& operator>>(std::istream& left, Int& right)
+{
+	int temp = 0;
+	left >> temp;
+	right.set(temp);
+	return left;
+}
 
 int main()
 {
@@ -82,20 +84,25 @@ int main()
 		print(tmp3);
 		std::vector<std::string> tmp5{ "Hello, ", "To be " , "Blah "};
 		std::vector<std::string> tmp6{ "World!", "or not to be.", "blah" };
-		//f(tmp5, tmp6);
+		f(tmp5, tmp6);
 		print(tmp5);
-		std::cout << task2(tmp2, tmp3) << std::endl;
-		std::cout << task2(tmp5, tmp6) << std::endl;
-		/*Int a;
-		std::cout << a;
-		a = 3;
-		std::cout << a;
-		Int b(a);
-		std::cout << b;
-		Int c;
-		c= a + b;
-		std::cout << c;
-		*/
+		std::cout << task2(tmp3, tmp2) << std::endl;
+		
+		Int a(10), b, c, d, e, f;
+		b = 5;
+		c = a + b;
+		d = a - b;
+		e = d + a * b;
+		f = a / b;
+		std::cout << a << b << c << d << e << f;
+		std::cout << "Input two values" << std::endl;
+		std::cin >> a >> b;
+		std::cout << a << b;
+		std::vector <Int> t { a,b,c,d,e,f };
+		std::vector <int> u { 1,2,3,4,5,6 };
+		std::vector <Int> t2{ f,e,d,c,b,a };
+		//std::cout << task2(t, t2);
+		
 	}
 	catch (const std::exception & e) 
 	{
