@@ -4,13 +4,14 @@
 #include <fstream>
 #include<string>
 #include<regex>
+#include<map>
 
-void get_data(std::vector<std::string>& text)
+std::vector<std::string> get_data(std::istream& is)
 {
-	std::ifstream file{ "text.txt" };
-	if (!file)throw std::runtime_error("File doesn't exist");
-	for (std::string line; std::getline(file, line);)
+	std::vector<std::string> text;
+	for (std::string line; std::getline(is, line);)
 		text.push_back(line);
+	return text;
 }
 
 void print(const std::vector<std::string>& text)
@@ -19,24 +20,42 @@ void print(const std::vector<std::string>& text)
 		std::cout << line << std::endl;
 }
 
-void find_date(const std::vector<std::string>& text)
+
+
+void print(const std::map<std::string, std::string>& match)
 {
-	std::regex pattern{ ("(\\d{4}-\\d{2}-\\d{2})|\\d{2}-\\d{2}-\\d{4}|\\d{2}[.]\\d{2}[.]\\d{4}|\\d{4}[.]\\d{2}[.]\\d{2}") };
-	std::smatch matches;
-	for (size_t line=0; line < text.size(); line++)
-		if(std::regex_search(text.at(line), matches, pattern))
-			std::cout<<"String number:"<< line+1 <<std::endl<<text.at(line)<<std::endl;
+	for (auto line : match)
+		std::cout << line.first << std::endl << line.second << std::endl;
 }
+
+std::map<std::string, std::string> find_date(const std::vector<std::string>& text)
+{
+	std::regex pattern { ("(\\d{4}-\\d{2}-\\d{2})|\\d{2}-\\d{2}-\\d{4}|\\d{2}[.]\\d{2}[.]\\d{4}|\\d{4}[.]\\d{2}[.]\\d{2}") };
+	
+	std::map<std::string, std::string> match;
+	for (auto line : text)
+	{
+		std::smatch matches;
+		if (std::regex_search(line, matches, pattern))
+			match.insert(std::make_pair(matches[0], line));
+	}
+			//std::cout<<"String number:"<< line+1 <<std::endl<<text.at(line)<<std::endl;
+	return match;
+}
+
+
 
 int main()
 {
 	try
 	{
-		std::vector<std::string> text;
-		get_data(text);
+		std::ifstream file{ "text.txt" };
+		if (!file)throw std::runtime_error("File doesn't exist");
+		std::vector<std::string> text = std::move(get_data(file));
 		print(text);
 		std::cout << "		Strings with date:" << std::endl;
-		find_date(text);
+		print(find_date(text));
+
 	}
 	catch(const std::exception& e)
 	{
