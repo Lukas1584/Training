@@ -3,6 +3,7 @@
 #include <fstream>
 #include<string>
 #include<regex>
+#include"Text.h"
 
 std::vector<std::string> get_data(std::istream& is)
 {
@@ -56,7 +57,7 @@ std::ifstream open_read(const std::string& file_name)
 std::ofstream open_save(const std::string& file_name)
 {
 	std::ofstream file{ file_name };
-	if (!file) throw std::runtime_error("File doesn't exist");
+	if (!file) throw std::runtime_error("Can't create file");
 	return file;
 }
 
@@ -64,6 +65,7 @@ int main()
 {
 	try
 	{
+	/*
 		std::ifstream is{ open_read("text.txt") };
 		std::vector<std::string> text{ get_data(is) };
 		std::cout << "	Original file: " << std::endl;
@@ -71,6 +73,11 @@ int main()
 		std::cout << "	Modified file: " << std::endl;
 		std::ofstream os{ open_save("result.txt") };
 		print(find_date_replace(text),os);
+	*/
+
+		Text a("text.txt");
+		a.print(std::cout);
+		a.print("result2.txt", a.find_date_replace());
 	}
 	catch(const std::exception& e)
 	{
