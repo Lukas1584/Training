@@ -9,14 +9,25 @@ class Text
 {
 public:
 	Text(const std::string&);
-	std::ifstream open_read(const std::string&);
-	std::ofstream open_save(const std::string&);
-	void print(const std::string&, const std::vector<std::string>& );
+	Text(){};
+
+	bool get_data(const std::string&);
+	void get_data(std::istream& );
+	
 	void print(std::ostream&);
-	std::vector<std::string> find_date_replace();
+	void print_replaced(std::ostream& os);
+
+	bool save_replaced(const std::string&);
+		
+	void replace_date();
+
+	void set_pattern(const std::regex& ptrn) { pattern=ptrn ; }
+
 private:
-	void get_data(std::istream&);
 	std::vector<std::string> text;
-	std::string find_date_replace(const std::string&);
+	std::vector<std::string> replaced;
+	std::regex pattern{ R"((\d{4}[.]\d{2}[.]\d{2})|(\d{2}\D\d{2}\D\d{4}))" };
+	
+	std::string replace_date(const std::string&);
 	std::string replace(const std::string&);
 };

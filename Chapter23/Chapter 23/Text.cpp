@@ -3,22 +3,8 @@
 
 Text::Text(const std::string& filename)
 {
-	std::ifstream file{ open_read(filename) };
-	get_data(file);
-}
-
-std::ifstream Text::open_read(const std::string& file_name)
-{
-	std::ifstream file{ file_name };
-	if (!file) throw std::runtime_error("File doesn't exist");
-	return file;
-}
-
-std::ofstream Text::open_save(const std::string& file_name)
-{
-	std::ofstream file{ file_name };
-	if (!file) throw std::runtime_error("Can't create file");
-	return file;
+	Text::get_data(filename);
+	replaced=text;
 }
 
 void Text::get_data(std::istream& is)
@@ -27,10 +13,26 @@ void Text::get_data(std::istream& is)
 		text.push_back(line);
 }
 
-void Text::print(const std::string& filename, const std::vector<std::string>& print)
+bool Text::get_data(const std::string& file_name)
 {
-	std::ofstream os{ Text::open_save(filename) };
-	for (const auto& line : print)
+	std::ifstream file{ file_name };
+	if (!file) return false;
+	Text::get_data(file);
+	return true;
+}
+
+bool Text::save_replaced(const std::string& file_name)
+{
+	std::ofstream file{ file_name };
+	if (!file) return false;
+	for (const auto& line : replaced)
+		file << line << std::endl;
+	return true;
+}
+
+void Text::print_replaced(std::ostream& os)
+{
+	for (const auto& line : replaced)
 		os << line << std::endl;
 }
 
@@ -50,9 +52,8 @@ std::string Text::replace(const std::string& date)
 	return result;
 }
 
-std::string Text::find_date_replace(const std::string& line)
+std::string Text::replace_date(const std::string& line)
 {
-	std::regex pattern{ R"((\d{4}[.]\d{2}[.]\d{2})|(\d{2}\D\d{2}\D\d{4}))" };
 	std::smatch matches;
 	std::string result = line;
 	while (std::regex_search(result, matches, pattern))
@@ -60,11 +61,10 @@ std::string Text::find_date_replace(const std::string& line)
 	return result;
 }
 
-std::vector<std::string> Text::find_date_replace()
+void Text::replace_date()
 {
-	std::vector<std::string> replaced = text;
 	for (std::string& line : replaced)
-		line = Text::find_date_replace(line);
-	return replaced;
+		line = Text::replace_date(line);
 }
+
 
