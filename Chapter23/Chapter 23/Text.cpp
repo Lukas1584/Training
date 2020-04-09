@@ -7,17 +7,12 @@ Text::Text(const std::string& filename)
 	replaced=text;
 }
 
-void Text::get_data(std::istream& is)
-{
-	for (std::string line; std::getline(is, line);)
-		text.push_back(line);
-}
-
 bool Text::get_data(const std::string& file_name)
 {
 	std::ifstream file{ file_name };
 	if (!file) return false;
-	Text::get_data(file);
+	for (std::string line; std::getline(file, line);)
+		text.push_back(line);
 	return true;
 }
 
@@ -36,7 +31,7 @@ void Text::print_replaced(std::ostream& os)
 		os << line << std::endl;
 }
 
-void Text::print(std::ostream& os)
+void Text::print_original(std::ostream& os)
 {
 	for (const auto& line : text)
 		os << line << std::endl;
@@ -54,6 +49,7 @@ std::string Text::replace(const std::string& date)
 
 std::string Text::replace_date(const std::string& line)
 {
+	std::regex pattern{ R"((\d{4}[.]\d{2}[.]\d{2})|(\d{2}\D\d{2}\D\d{4}))" };
 	std::smatch matches;
 	std::string result = line;
 	while (std::regex_search(result, matches, pattern))

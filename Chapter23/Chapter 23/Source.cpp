@@ -6,8 +6,7 @@ int main()
 	try
 	{
 		Text a("text.txt");
-		a.print(std::cout);
-		a.replace_date();
+		a.print_original(std::cout);
 		a.save_replaced("Result3.txt");
 		a.print_replaced(std::cout);
 	}
