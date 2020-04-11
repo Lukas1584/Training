@@ -1,6 +1,8 @@
 #include<iostream>
 #include"Matrix.h"
 #include"MatrixIO.h"
+#include <random>
+#include <vector>
 
 class Tripple
 {
@@ -65,7 +67,7 @@ int main()
 	std::cout << m;
 	m.apply([](int& arg) {arg = arg * arg * arg; });
 	std::cout << m;
-	*/
+	
 	try
 	{
 		Numeric_lib::Matrix<double> vec(3);
@@ -81,6 +83,17 @@ int main()
 	{
 		std::cout << "Exception:" << e.what();
 	}
+	*/
+
+	int d, n;
+	std::cout << "Input two integer values"<<std::endl;
+	std::cin >> n >> d;
+	std::vector<int> vec(n+1);
+	std::default_random_engine ran;
+	for (int i = 0; i < d; i++)
+		vec[std::uniform_int_distribution<>{ 0, n }(ran)] ++;
+	for (int i = 0; i < vec.size(); i++)
+		std::cout << i << ":" << vec[i] << std::endl;
 	return 0;
 }
 
