@@ -94,7 +94,7 @@ void task12() //Matrix: n[][]*m[], n+m
 
 
 
-void task6() //random
+void task10() //random
 {
 	int d, n;
 	std::cout << "Input two integer values" << std::endl;
@@ -109,13 +109,46 @@ void task6() //random
 
 
 
+template <typename T, typename R, int N>
+Numeric_lib::Matrix<T, N> apply(R f(T),const Numeric_lib::Matrix<T, N>& a)
+{
+	Numeric_lib::Matrix<R, N> result=(R)a;
+	R* ptr_result = result.data();
+	const T* ptr_a = a.data();
+	for (int i = 0; i < result.size(); i++, ptr_result++,ptr_a++)
+		*ptr_result = f(*ptr_a);
+	return result;
+}
+
+template <typename T, typename R, typename A, int N>
+Numeric_lib::Matrix<T, N> apply(R f(T), const Numeric_lib::Matrix<T, N>& a, const A& arg)
+{
+		Numeric_lib::Matrix<R, N> result = (R)a;
+	R* ptr_result = result.data();
+	const T* ptr_a = a.data();
+	for (int i = 0; i < result.size(); i++, ptr_result++, ptr_a++)
+		*ptr_result = f(*ptr_a,arg);
+	return result;
+}
+
+void task9()
+{
+	Numeric_lib::Matrix<double, 2> n(2, 3);
+	fill(n);
+	std::cout << n;
+	std::cout << apply([](const int& x) {return x * x; }, n);
+	std::cout << apply([](const int& x, const int& b) {return b * x * x; }, n, 7);
+}
+
+
 int main()
 {	
 	try
 	{
-		task1();
-		task6();
-		task12();
+		//task1();
+		//task10();
+		//task12();
+		task9();
 	}
 	catch (const std::exception& e)
 	{
