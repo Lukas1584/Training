@@ -37,9 +37,17 @@ void task3()
 	std::cout << uh << std::endl;
 }
 
+void task9()
+{
+	std::cout << std::endl <<"Quantity of bits: "<< 8*sizeof(int) << std::endl;
+	char ch = 0b1111111111111111;
+	std::cout << (int)ch << std::endl;
+}
+
 int main()
 {
 	task3();
+	task9();
 	return 0;
 }
 
