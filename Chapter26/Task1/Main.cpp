@@ -28,6 +28,30 @@ bool binary_search(Iter begin,Iter end,const T& value)
 	}
 }
 
+template <typename Iter, typename T, typename Compare>
+bool binary_search(Iter begin, Iter end, const T& value, Compare comp)
+{
+    Iter result;
+    while (true)
+    {
+        if (begin == end) return false;
+        result = begin + (end - begin) / 2;
+        if (*result == value) return true;
+        if (comp(value, *result))
+        {
+            if (result == end)
+                return false;
+            end = result;
+        }
+        else
+        {
+            if (result == begin)
+                return false;
+            begin = result;
+        }
+    }
+}
+
 template<typename T>
 struct Test
 {
@@ -51,7 +75,7 @@ std::istream& operator>>(std::istream& is, Test<T>& t)
     while (is.get(ch))
     {
         if (ch == ' ')
-          is.get(ch);
+            is.get(ch);
         if (ch == '}')
         {
             is.unget();
@@ -106,6 +130,27 @@ int test_all(const std::string& s)
     return error_count;
 }
 
+template<typename T,typename Compare>
+int test_all(const std::string& s,Compare comp)
+{
+    int error_count = 0;
+    Test<T> t;
+    std::ifstream is(s);
+    if (!is) std::cerr << "ERROR: File doesn't exist!";
+    while (is >> t) {
+        std::cout << t << std::endl;
+        bool r = binary_search(t.seq.begin(), t.seq.end(), t.val, comp);
+        if (r != t.res) {
+            std::cout << "failure: test " << t.label
+                << " binary_search: "
+                << t.seq.size() << " elements, v==" << t.val
+                << " -> " << t.res << '\n';
+            ++error_count;
+        }
+    }
+    return error_count;
+}
+
 int main()
 {
     int errors_int = test_all<int>("test_int.txt");
@@ -116,5 +161,9 @@ int main()
     std::cout << "number of errors: " << errors_string << "\n";
     int errors_char = test_all<char>("test_char.txt");
     std::cout << "number of errors: " << errors_char << "\n";
+    int errors_int_comp = test_all<int>("test_int_comp.txt", [](const int& a,const int& b) {return a > b; });
+    std::cout << "number of errors: " << errors_int_comp << "\n";
+    int errors_double_comp = test_all<double>("test_double_comp.txt", [](const double& a, const double& b) {return a > 2*b; });
+    std::cout << "number of errors: " << errors_double_comp << "\n";
     return 0;
 }

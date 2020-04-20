@@ -5,7 +5,7 @@
 #include<memory>
 #include<algorithm>
 
-const int MAX = 10000;
+const int MAX = 50000;
 std::vector<int> rand_bite(MAX);
 std::vector<int> rand_order(MAX);
 
@@ -106,7 +106,8 @@ void stack(int count)
 void stack()
 {
 	auto t1 = std::chrono::system_clock::now();
-	stack(1250);
+	for(int i=0; i<50; i++)
+		stack(1000);
 	auto t2 = std::chrono::system_clock::now();
 	std::cout << "Created & deleted 1250*500bit: " << std::chrono::duration_cast<std::chrono::milliseconds>(t2 - t1).count() << std::endl;
 }
@@ -116,7 +117,7 @@ void vector()
 	Soo a;
 	std::vector<Soo> vec;
 	auto t1 = std::chrono::system_clock::now();
-	vec.reserve(MAX);
+	//vec.reserve(MAX);
 	for (int i = 0; i < MAX; i++)
 		vec.push_back(a);
 	auto t2 = std::chrono::system_clock::now();
