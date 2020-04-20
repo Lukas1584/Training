@@ -1,7 +1,7 @@
 #include<iostream>
 #include<vector>
 #include<string>
-#include <iterator>
+#include<iterator>
 #include<fstream>
 
 template <typename Iter,typename T>
@@ -28,16 +28,17 @@ bool binary_search(Iter begin,Iter end,const T& value)
 	}
 }
 
-//Testing. From the book
+template<typename T>
 struct Test
 {
 	std::string label;
-	int val;
-	std::vector<int> seq;
+	T val;
+    std::vector<T> seq;
 	bool res;
 };
 
-std::istream& operator>>(std::istream& is, Test& t)
+template<typename T>
+std::istream& operator>>(std::istream& is, Test<T>& t)
 {
     std::string a, b;
     if (is >> a >> t.label >> t.val >> b && (a != "{" || b != "{"))
@@ -46,11 +47,24 @@ std::istream& operator>>(std::istream& is, Test& t)
         return is;
     }
     t.seq.clear();
-    std::copy(
-        std::istream_iterator<int>(is),
-        std::istream_iterator<int>(),
-        std::back_inserter(t.seq)
-    );
+    char ch;
+    while (is.get(ch))
+    {
+        if (ch == ' ')
+          is.get(ch);
+        if (ch == '}')
+        {
+            is.unget();
+            break;
+        }
+        else
+        {
+            is.unget();
+            T value;
+            is >> value;
+            t.seq.push_back(value);
+        }
+    }
     is.clear();
     std::string c, d;
     int res = 0;
@@ -63,18 +77,20 @@ std::istream& operator>>(std::istream& is, Test& t)
     return is;
 }
 
-std::ostream& operator<<(std::ostream& os, const Test& t)
+template<typename T>
+std::ostream& operator<<(std::ostream& os, const Test<T>& t)
 {
     os << "{ " << t.label << ' ' << t.val << " { ";
-    std::copy(t.seq.begin(), t.seq.end(), std::ostream_iterator<int>(os, " "));
+    std::copy(t.seq.begin(), t.seq.end(), std::ostream_iterator<T>(os, " "));
     return os << "} " << t.res << " }";
 }
 
-int test_all()
+template<typename T>
+int test_all(const std::string& s)
 {
     int error_count = 0;
-    Test t;
-    std::ifstream is("test.txt");
+    Test<T> t;
+    std::ifstream is(s);
     if (!is) std::cerr<<"ERROR: File doesn't exist!";
     while (is >> t) {
         std::cout << t << std::endl;
@@ -92,7 +108,13 @@ int test_all()
 
 int main()
 {
-    int errors = test_all();
-    std::cout << "number of errors: " << errors << "\n";
+    int errors_int = test_all<int>("test_int.txt");
+    std::cout << "number of errors: " << errors_int << "\n";
+    int errors_double = test_all<double>("test_double.txt");
+    std::cout << "number of errors: " << errors_double << "\n";
+    int errors_string = test_all<std::string>("test_string.txt");
+    std::cout << "number of errors: " << errors_string << "\n";
+    int errors_char = test_all<char>("test_char.txt");
+    std::cout << "number of errors: " << errors_char << "\n";
     return 0;
 }

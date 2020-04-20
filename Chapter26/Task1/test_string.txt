@@ -1,0 +1,11 @@
+{ 1.1 ba { ba cv gtr kvb mn ouy q23d } 1 }
+{ 1.2 gtr { ba cv gtr kvb mn ouy q23d } 1 }
+{ 1.3 mn { ba cv gtr kvb mn ouy q23d } 1 }
+{ 1.4 q23d { ba cv gtr kvb mn ouy q23d } 1 }
+{ 1.5 a { ba cv gtr kvb mn ouy q23d } 0 }
+{ 1.6 f { ba cv gtr kvb mn ouy q23d } 0 }
+{ 1.7 z { ba cv gtr kvb mn ouy q23d } 0 }
+{ 2.0 a {  } 0 }
+{ 3.1 ad { ad } 1 }
+{ 3.2 0 { c } 0 }
+{ 3.3 z { c } 0 }
