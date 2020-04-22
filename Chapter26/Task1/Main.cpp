@@ -11,13 +11,18 @@ requires(Iter i, Iter j, int n)
     { i = j };
     { i == j }->bool;
     { i + n }->Iter;
-    { n + i }->Iter;
     { j - i }->int;
-    { i > j }->bool;
-     i[n];
 };
 
-template <Iterator_bs Iter, typename T>
+template <typename T>
+concept Type_bs =
+requires(T i, T j)
+{
+    { i == j }->bool;
+    { i > j }->bool;
+};
+
+template <Iterator_bs Iter, Type_bs T>
 bool binary_search(Iter begin,Iter end,const T& value)
 {
 	Iter result;
