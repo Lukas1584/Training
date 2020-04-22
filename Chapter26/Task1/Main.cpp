@@ -1,10 +1,23 @@
 #include<iostream>
 #include<vector>
 #include<string>
-#include<iterator>
 #include<fstream>
+#include<iterator>
 
-template <typename Iter,typename T>
+template <typename Iter>
+concept Iterator_bs=
+requires(Iter i, Iter j, int n) 
+{
+    { i = j };
+    { i == j }->bool;
+    { i + n }->Iter;
+    { n + i }->Iter;
+    { j - i }->int;
+    { i > j }->bool;
+     i[n];
+};
+
+template <Iterator_bs Iter, typename T>
 bool binary_search(Iter begin,Iter end,const T& value)
 {
 	Iter result;
@@ -28,7 +41,7 @@ bool binary_search(Iter begin,Iter end,const T& value)
 	}
 }
 
-template <typename Iter, typename T, typename Compare>
+template <Iterator_bs Iter, typename T, typename Compare>
 bool binary_search(Iter begin, Iter end, const T& value, Compare comp)
 {
     Iter result;
@@ -36,7 +49,7 @@ bool binary_search(Iter begin, Iter end, const T& value, Compare comp)
     {
         if (begin == end) return false;
         result = begin + (end - begin) / 2;
-        if (*result == value) return true;
+        if ((comp(value, *result) == false) && (comp(*result, value)==false)) return true;
         if (comp(value, *result))
         {
             if (result == end)
@@ -163,7 +176,7 @@ int main()
     std::cout << "number of errors: " << errors_char << "\n";
     int errors_int_comp = test_all<int>("test_int_comp.txt", [](const int& a,const int& b) {return a > b; });
     std::cout << "number of errors: " << errors_int_comp << "\n";
-    int errors_double_comp = test_all<double>("test_double_comp.txt", [](const double& a, const double& b) {return a > 2*b; });
+    int errors_double_comp = test_all<double>("test_double_comp.txt", [](const double& a, const double& b) {return a > b; });
     std::cout << "number of errors: " << errors_double_comp << "\n";
     return 0;
 }
